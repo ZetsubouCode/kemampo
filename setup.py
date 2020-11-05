@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="kemampo-wowotek", # Replace with your own username
+    name="kemampo", # Replace with your own username
     version=str(kemampo.__version__),
     author="Erlangga Ibrahim",
     author_email="erlanggaibr2@gmail.com",
