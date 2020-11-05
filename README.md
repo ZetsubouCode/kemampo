@@ -1,5 +1,15 @@
 <h1 align=center> Kemampo </h1>
+<p align=center>
+<img src="https://img.shields.io/github/workflow/status/dolano-tours/kemampo/Test%20Kemampo/production?label=production%20build"/>
+<img src="https://img.shields.io/github/workflow/status/dolano-tours/kemampo/Test%20Kemampo/staging?label=staging%20build"/>
+<img src="https://img.shields.io/github/workflow/status/dolano-tours/kemampo/Test%20Kemampo/nightly?label=nightly%20build"/>
+<img src="https://img.shields.io/github/issues-raw/dolano-tours/kemampo?label=issues"/>
+<img src="https://img.shields.io/pypi/pyversions/kemampo?label=PyPI"/>
+<img src="https://img.shields.io/pypi/dm/kemampo"/>
+<img src="https://img.shields.io/github/repo-size/dolano-tours/kemampo?label=lib%20size"/>
+</p>
 <i><p align=center>Small, Lightweight Library to cut down SQLAlchemy Controllers Boilerplates</p></i>
+
 
 <h2 align=center> Usage </h2>
 
