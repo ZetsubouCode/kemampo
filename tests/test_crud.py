@@ -1,18 +1,13 @@
 import random
 from typing import Tuple, Dict, Any
-from sqlalchemy.log import echo_property
 
 from sqlalchemy.orm.session import sessionmaker
 from kemampo import Kemampo, ReturnStatus
 
-from .database import DB_ENGINE, Account
-
+from . import DB_ENGINE, Account
 
 kemampo = Kemampo(sessionmaker(bind=DB_ENGINE))
-controller = kemampo.create_controller(Account)
-def asw(c):
-    print(c)
-
+AccountController = kemampo.create_controller(Account)
 
 def __name_generator(length: int = -1) -> str:
     return "".join(
@@ -24,14 +19,9 @@ def __name_generator(length: int = -1) -> str:
         ]
     )
 
-def test_general():
-    controller.asw = asw
-    print("HWHOAWHDFBIOABFIOLUBASDFIO")
-    print(controller.asw)
-
 def test_add() -> Tuple[str, Dict[str, Any]]:
     rname = __name_generator(9)
-    status, data = controller.add(**{"name": rname})
+    status, data = AccountController.add(**{"name": rname})
     if status:
         assert isinstance(data, dict)
         assert 'id' in data
@@ -46,7 +36,7 @@ def test_add() -> Tuple[str, Dict[str, Any]]:
 
 def test_get():
     name, data = test_add()
-    status, datass = controller.get(id=data["id"])
+    status, datass = AccountController.get(id=data["id"])
     if not status:
         assert False, "Failed to Add!"
 
@@ -58,7 +48,7 @@ def test_get():
         assert i["name"] == name
 
 def test_get_all():
-    status, data = controller.get_all()
+    status, data = AccountController.get_all()
 
     assert isinstance(data, list)
     for i in data:
@@ -69,7 +59,7 @@ def test_get_all():
 def test_update_by_id():
     _, data = test_add()
     new_name = __name_generator()
-    status, result = controller.update_by_id(data["id"], **{"name": new_name})
+    status, result = AccountController.update_by_id(data["id"], **{"name": new_name})
 
     assert isinstance(result, dict)
     assert "id" in result
@@ -78,21 +68,21 @@ def test_update_by_id():
 
 def test_delete():
     new_name = eval("__name_generator(20)")
-    _, data = eval("controller.add(**{\"name\": new_name})")
+    _, data = eval("AccountController.add(**{\"name\": new_name})")
     if not isinstance(data, dict):
         assert False, "Failed to add data"
 
     nid = data["id"]
     nname = data["name"]
 
-    status, ddata = eval("controller.delete(id=nid)")
+    status, ddata = eval("AccountController.delete(id=nid)")
     if not isinstance(ddata, dict):
         assert False, "Failed to delete data"
 
     assert ddata["id"] == nid
     assert ddata["name"] == nname
 
-    _, result = controller.get_all()
+    _, result = AccountController.get_all()
     values = []
     for i in result:
         [values.append(j) for j in i.values()]
