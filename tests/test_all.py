@@ -39,10 +39,11 @@ def test_add() -> Tuple[str, Dict[str, Any]]:
 
 def test_get():
     name, data = test_add()
-    _, datas = controller.get(id=data["id"])
+    status, datass = controller.get(id=data["id"])
+    if not status:
+        assert False, "Failed to Add!"
 
-    assert isinstance(datas, list)
-    for i in datas:
+    for i in datass:
         assert isinstance(i, dict)
         assert "id" in i
         assert "name" in i

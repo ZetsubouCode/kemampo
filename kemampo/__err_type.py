@@ -24,9 +24,9 @@ class SessionError(KemampoError):
         )
 
 class QueryKeyInvalid(KemampoError):
-    def __init__(sef, identifier, message):
+    def __init__(self, identifier, message):
         super().__init__("Query Key Invalid", identifier, message)
 
 class QueryLengthInvalid(KemampoError):
-    def __init__(sef, identifier, message):
+    def __init__(self, identifier, message):
         super().__init__("Query Length Invalid", identifier, message)
