@@ -10,6 +10,9 @@ from .database import DB_ENGINE, Account
 
 kemampo = Kemampo(sessionmaker(bind=DB_ENGINE))
 controller = kemampo.create_controller(Account)
+def asw(c):
+    print(c)
+
 
 def __name_generator(length: int = -1) -> str:
     return "".join(
@@ -21,6 +24,10 @@ def __name_generator(length: int = -1) -> str:
         ]
     )
 
+def test_general():
+    controller.asw = asw
+    print("HWHOAWHDFBIOABFIOLUBASDFIO")
+    print(controller.asw)
 
 def test_add() -> Tuple[str, Dict[str, Any]]:
     rname = __name_generator(9)
@@ -70,27 +77,25 @@ def test_update_by_id():
     assert result["name"] == new_name
 
 def test_delete():
-    for c in range(500):
-        new_name = eval("__name_generator(20)")
-        _, data = eval("controller.add(**{\"name\": new_name})")
-        if not isinstance(data, dict):
-            assert False, "Failed to add data"
+    new_name = eval("__name_generator(20)")
+    _, data = eval("controller.add(**{\"name\": new_name})")
+    if not isinstance(data, dict):
+        assert False, "Failed to add data"
 
-        nid = data["id"]
-        nname = data["name"]
+    nid = data["id"]
+    nname = data["name"]
 
-        status, ddata = eval("controller.delete(id=nid)")
-        if not isinstance(ddata, dict):
-            assert False, "Failed to delete data"
+    status, ddata = eval("controller.delete(id=nid)")
+    if not isinstance(ddata, dict):
+        assert False, "Failed to delete data"
 
-        assert ddata["id"] == nid
-        assert ddata["name"] == nname
+    assert ddata["id"] == nid
+    assert ddata["name"] == nname
 
-        _, result = controller.get_all()
-        values = []
-        for i in result:
-            [values.append(j) for j in i.values()]
+    _, result = controller.get_all()
+    values = []
+    for i in result:
+        [values.append(j) for j in i.values()]
 
-        print(f"{c} Added: <{nid}, {nname}>, Deleted <{ddata['id']}, {ddata['name']}>")
-        assert nid not in values
-        assert nname not in values
+    assert nid not in values
+    assert nname not in values

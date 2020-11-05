@@ -2,6 +2,7 @@
 <i><p align=center>Small, Lightweight Library to cut down SQLAlchemy Controllers Boilerplates</p></i>
 
 <h2 align=center> Usage </h2>
+
 ### Concept
 
 1. First define all of your tables, and all things necessary

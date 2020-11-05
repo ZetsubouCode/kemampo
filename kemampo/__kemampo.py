@@ -144,14 +144,14 @@ class GenericController:
 
             return True, result_dict
 
-def log(message):
-    print(message)
+def _KEMAMPO_DEFAULT_LOG(message):
+    ...
 
 class Kemampo:
     session_generator: Callable[..., ContextManager[Session]]
     __log: Callable[..., Any]
 
-    def __init__(self, session_maker: sessionmaker, log_callback: Callable[..., Any] = log):
+    def __init__(self, session_maker: sessionmaker, log_callback: Callable[..., Any] = _KEMAMPO_DEFAULT_LOG):
         if not isinstance(session_maker, sessionmaker):
             log_callback(f"Parameter session_maker expected to have type of sqlalchemy.orm.sessionmaker not {type(session_maker)}")
             raise ValueError(f"Parameter session_maker expected to have type of sqlalchemy.orm.sessionmaker not {type(session_maker)}")
