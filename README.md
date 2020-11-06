@@ -44,7 +44,7 @@ Use Kemampo
 from kemampo import Kemampo
 
 kemampo = Kemampo(sessionmaker(bind=DB_ENGINE))
-UserController = kemampo.generate_controller(User)
+UserController = kemampo.create_controller(User)
 
 user_data = {"username": "test_new_user", "password": "a_password_hash"}
 update_user_data = {"username": "updated_username"}
@@ -54,8 +54,6 @@ status, user = UserController.update_by_id(1, **update_user_data)   # update by 
 status, users = UserController.get_all()                            # get all
 status, user = UserController.delete(1)                             # delete by id
 ```
-
-
 
 <h2 align=center> Installation </h2>
 
@@ -76,7 +74,7 @@ python3 -m pip install kemampo
         - Expected Type: `Callbacks` or `function`
         - put your function here to get kemampo logging output
 - Methods
-    - `Kemampo.generate_controller(target_model)`
+    - `Kemampo.create_controller(target_model)`
         - The Main feature of kemampo, create a **_CRUD_** controller for `target_model`
         - `target_model`
             - Expected Type: _your table_ specifically `sqlalchemy.ext.declarative.DeclarativeMeta` or it's subclass

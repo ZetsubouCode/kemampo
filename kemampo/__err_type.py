@@ -1,10 +1,10 @@
 import enum
 from traceback import format_exc
 
+
 class ReturnStatus(str, enum.Enum):
     DatabaseError = "Database Error"
     NotFound = "Row Data Not Found"
-
 
 class KemampoError(Exception):
     def __init__(self, name, identifier, message):
