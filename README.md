@@ -65,80 +65,88 @@ python3 -m pip install kemampo
 
 <h2 align=center> API Documentations </h2>
 
-### `kemampo.Kemampo(session_maker, log_callback)`
-- Constructor
-    - `sessionmaker`
-        - Expected Type: `sqlalchemy.orm.session.sessionmaker`
-        - Your own sessionmaker. docs: https://docs.sqlalchemy.org/en/13/orm/session_api.html#session-and-sessionmaker
-    - `log_callback`
-        - Expected Type: `Callbacks` or `function`
-        - put your function here to get kemampo logging output
-- Methods
-    - `Kemampo.create_controller(target_model)`
-        - The Main feature of kemampo, create a **_CRUD_** controller for `target_model`
-        - `target_model`
-            - Expected Type: _your table_ specifically `sqlalchemy.ext.declarative.DeclarativeMeta` or it's subclass
-            - returns `<table-name>Controller`
+### `Kemampo`
+#### `Kemampo(session_maker, log_callback)`
+- `sessionmaker`
+    - Expected Type: `sqlalchemy.orm.session.sessionmaker`
+    - Your own sessionmaker. docs: https://docs.sqlalchemy.org/en/13/orm/session_api.html#session-and-sessionmaker
+- `log_callback`
+    - Expected Type: `Callbacks` or `function`
+    - put your function here to get kemampo logging output
+    - Default _Do-Nothing-Function_
+        ```python
+
+        ```
+#### `Kemampo.create_controller(target_model)`
+- The Main feature of kemampo, create a **_CRUD_** controller for `target_model`
+- `target_model`
+    - Expected Type: _your table_ specifically `sqlalchemy.ext.declarative.DeclarativeMeta` or it's subclass
+    - returns `<table-name>Controller`
+
+---
+
 ### `<table-name>Controller`
 The core feature of Kemampo, provide you with basic **_CRUD_** Controller Operations
-- Methods
-    - `add(**table_dict_model)`
-        - Add new row data to database
-        - `table_dict_model`
-            - type: `Dict`
-            - scheme:
-                ```python
-                {table_column_name: column_name_value, ...}
-                ```
-        - returns Tuple of:
-            - (`True`, `added_dict_of_model`) or
-            - (`False`, `ReturnStatus`)
-    - `get(**target_row_column_key_value)`
-        - Get rows data from database, based on column name you give with certain value. support multiple column name and value
-        - `target_row_column_key_value`
-            - type: `Dict`
-            - scheme:
-                ```python
-                {table_column_name: column_name_value, ...}
-                ```
-        - returns Tuple of:
-            - (`True`, `List[dict_of_model]`) or
-            - (`False`, `ReturnStatus`)
-    - `get_all()`
-        - Gather all row values from database
-        - returns Tuple of:
-            - (`True`, `List[dict_of_model]`) or
-            - (`False`, `ReturnStatus`)
-    - `update_by_id(target_id, **updated_row_column_key_value)`
-        - `target_id`
-            - type: `int`
-        - `updated_row_column_key_value`
-            - type: `Dict`
-            - scheme:
-                ```python
-                {table_column_name: column_name_value, ...}
-                ```
-        - returns Tuple of:
-            - (`True`, `dict_of_model`) or
-            - (`False`, `ReturnStatus`)
-    - `delete(**target_row_column_key_value)`
-        - `target_row_column_key_value`
-            - type: `Dict`
-            - scheme:
-                ```python
-                {table_column_name: column_name_value, ...}
-                ```
-        - returns Tuple of:
-            - (`True`, `dict_of_model`) or
-            - (`False`, `ReturnStatus`)
+
+#### `<table-name>Controller.add(**table_dict_model)`
+- Add new row data to database
+- `table_dict_model`
+    - type: `Dict`
+    - scheme:
+        ```python
+        {table_column_name: column_name_value, ...}
+        ```
+- returns Tuple of:
+    - (`True`, `added_dict_of_model`) or
+    - (`False`, `ReturnStatus`)
+#### `<table-name>Controller.get(**target_row_column_key_value)`
+- Get rows data from database, based on column name you give with certain value. support multiple column name and value
+- `target_row_column_key_value`
+    - type: `Dict`
+    - scheme:
+        ```python
+        {table_column_name: column_name_value, ...}
+        ```
+- returns Tuple of:
+    - (`True`, `List[dict_of_model]`) or
+    - (`False`, `ReturnStatus`)
+#### `<table-name>Controller.get_all()`
+- Gather all row values from database
+- returns Tuple of:
+    - (`True`, `List[dict_of_model]`) or
+    - (`False`, `ReturnStatus`)
+#### `<table-name>Controller.update_by_id(target_id, **updated_row_column_key_value)`
+- `target_id`
+    - type: `int`
+- `updated_row_column_key_value`
+    - type: `Dict`
+    - scheme:
+        ```python
+        {table_column_name: column_name_value, ...}
+        ```
+- returns Tuple of:
+    - (`True`, `dict_of_model`) or
+    - (`False`, `ReturnStatus`)
+#### `<table-name>Controller.delete(**target_row_column_key_value)`
+- `target_row_column_key_value`
+    - type: `Dict`
+    - scheme:
+        ```python
+        {table_column_name: column_name_value, ...}
+        ```
+- returns Tuple of:
+    - (`True`, `dict_of_model`) or
+    - (`False`, `ReturnStatus`)
+
+---
 
 ### `ReturnStatus`
 
 an Enumeration of possible Errors happening inside Kemampo
 
-- `ReturnStatus.DatabaseError`
-    - Error happened internally
-    - Values: `str` -> `"Database Error"`
-- `ReturnStatus.NotFound`
-    - Targeted row data was not found inside database
-    - Values: `str` -> `"Row Data Not Found"`
+#### `ReturnStatus.DatabaseError`
+- Error happened internally
+- Values: `str` -> `"Database Error"`
+#### `ReturnStatus.NotFound`
+- Targeted row data was not found inside database
+- Values: `str` -> `"Row Data Not Found"`
